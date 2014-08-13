@@ -4,7 +4,7 @@
 
 var app = express();
 app.set('views', __dirname + '/server/views');
-app.set('view_engine', 'jade');
+app.set('view engine', 'jade');
 
 app.get('*', function(request, response) {
 	response.render('index');
