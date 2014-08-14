@@ -1,3 +1,4 @@
+var bodyParser = require('body-parser');
 var express = require('express');
 var morgan = require('morgan');
 var stylus = require('stylus');
@@ -10,6 +11,9 @@ app.set('view engine', 'jade');
 app.use(stylus.middleware({
 	src: __dirname + '/public',
 	compile: compile
+}));
+app.use(bodyParser.urlencoded({
+	extended: true
 }));
 app.use(express.static(__dirname + '/public'));
 app.use(morgan('dev'));
