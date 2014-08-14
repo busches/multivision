@@ -1,6 +1,7 @@
- var express = require('express');
+var express = require('express');
 
- var env = process.env.NODE_EVN  = process.env.NODE_EVN || 'development';
+
+var env = process.env.NODE_EVN  = process.env.NODE_EVN || 'development';
 
 var app = express();
 app.set('views', __dirname + '/server/views');
