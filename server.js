@@ -1,4 +1,5 @@
 var express = require('express');
+var morgan = require('morgan');
 var stylus = require('stylus');
 
 var env = process.env.NODE_EVN = process.env.NODE_EVN || 'development';
@@ -11,6 +12,7 @@ app.use(stylus.middleware({
 	compile: compile
 }));
 app.use(express.static(__dirname + '/public'));
+app.use(morgan('dev'));
 
 function compile(string, path) {
 	return stylus(string).set('filename', path);
