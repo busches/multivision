@@ -1,5 +1,6 @@
 var bodyParser = require('body-parser');
 var express = require('express');
+var mongoose = require('mongoose');
 var morgan = require('morgan');
 var stylus = require('stylus');
 
@@ -17,6 +18,14 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(express.static(__dirname + '/public'));
 app.use(morgan('dev'));
+
+mongoose.connect('mongodb://localhost/multivision');
+
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error..'));
+db.once('open', function() {
+	console.log('multivision db opened');
+});
 
 function compile(string, path) {
 	return stylus(string).set('filename', path);
