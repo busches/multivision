@@ -19,7 +19,11 @@ app.use(bodyParser.urlencoded({
 app.use(express.static(__dirname + '/public'));
 app.use(morgan('dev'));
 
-mongoose.connect('mongodb://localhost/multivision');
+if (env === 'development') {
+	mongoose.connect('mongodb://localhost/multivision');
+} else {
+	mongoose.connect(process.env.MONGOHQ_URL);
+}
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error..'));
