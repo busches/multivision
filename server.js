@@ -27,6 +27,15 @@ db.once('open', function() {
 	console.log('multivision db opened');
 });
 
+var messageSchema = mongoose.Schema({
+	message: String
+});
+var Message = mongoose.model('Message', messageSchema);
+var mongoMessage;
+Message.findOne().exec(function(error, messageDoc) {
+	mongoMessage = messageDoc.message;
+});
+
 function compile(string, path) {
 	return stylus(string).set('filename', path);
 }
@@ -36,7 +45,9 @@ app.get('/partials/:partialPath', function(request, response) {
 });
 
 app.get('*', function(request, response) {
-	response.render('index');
+	response.render('index', {
+		mongoMessage: mongoMessage
+	});
 });
 
 var port = 3030;
