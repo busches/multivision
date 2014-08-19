@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 var morgan = require('morgan');
 var stylus = require('stylus');
 
-var env = process.env.NODE_EVN = process.env.NODE_EVN || 'development';
+var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
 var app = express();
 app.set('views', __dirname + '/server/views');
