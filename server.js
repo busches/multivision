@@ -37,7 +37,7 @@ function compile(string, path) {
 
 app.get('/partials/*', function(request, response) {
 	console.log(request.params);
-	response.render('partials/' + request.params[0]);
+	response.render('../../public/app/' + request.params[0]);
 });
 
 app.get('*', function(request, response) {
