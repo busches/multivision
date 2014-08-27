@@ -7,17 +7,11 @@ var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 var app = express();
 app.use(morgan('dev'));
 
-var config = {
-	rootPath: __dirname
-};
+var config = require('./server/config/config')[env];
 
 require('./server/config/express')(app, config);
 
-if (env === 'development') {
-	mongoose.connect('mongodb://localhost/multivision');
-} else {
-	mongoose.connect(process.env.MONGOHQ_URL);
-}
+mongoose.connect(config.db);
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error..'));
@@ -34,6 +28,5 @@ app.get('*', function(request, response) {
 	response.render('index', {});
 });
 
-var port = process.env.PORT || 3030;
-app.listen(port);
-console.log('Listening on port ' + port + '...');
+app.listen(config.port);
+console.log('Listening on port ' + config.port + '...');
