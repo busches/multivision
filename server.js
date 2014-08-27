@@ -35,8 +35,9 @@ function compile(string, path) {
 	return stylus(string).set('filename', path);
 }
 
-app.get('/partials/:partialPath', function(request, response) {
-	response.render('partials/' + request.params.partialPath);
+app.get('/partials/*', function(request, response) {
+	console.log(request.params);
+	response.render('partials/' + request.params[0]);
 });
 
 app.get('*', function(request, response) {
