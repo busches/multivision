@@ -1,5 +1,4 @@
 var express = require('express');
-var mongoose = require('mongoose');
 var morgan = require('morgan');
 
 var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
@@ -11,13 +10,7 @@ var config = require('./server/config/config')[env];
 
 require('./server/config/express')(app, config);
 
-mongoose.connect(config.db);
-
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error..'));
-db.once('open', function() {
-	console.log('multivision db opened');
-});
+require('./server/config/mongoose')(config);
 
 app.get('/partials/*', function(request, response) {
 	console.log(request.params);
