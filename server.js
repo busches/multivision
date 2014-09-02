@@ -21,7 +21,7 @@ passport.use(new LocalStrategy(
 		User.findOne({
 			userName: username
 		}).exec(function(error, user) {
-			if (user) {
+			if (user && user.authenticate(password)) {
 				return done(null, user);
 			} else {
 				return done(null, false);
