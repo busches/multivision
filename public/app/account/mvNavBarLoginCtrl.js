@@ -1,4 +1,5 @@
 angular.module('app').controller('mvNavBarLoginCtrl', function($scope, $http, mvIdentity, mvNotifier) {
+	$scope.identity = mvIdentity;
 	$scope.signin = function(username, password) {
 		$http.post('/login', {
 			username: username,
