@@ -1,6 +1,6 @@
-angular.module('app').factory('mvIdentity', function() {
+angular.module('app').factory('mvIdentity', function($window) {
 	return {
-		currentUser: undefined,
+		currentUser: $window.bootstrapedUserObject || undefined,
 		isAuthenticated: function() {
 			return !!this.currentUser;
 		}
