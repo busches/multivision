@@ -7,6 +7,11 @@ module.exports = function(app) {
 
 	app.post('/login', auth.authenticate);
 
+	app.post('/logout', function(request, response) {
+		request.logout();
+		response.end();
+	});
+
 	app.get('*', function(request, response) {
 		response.render('index', {});
 	});
