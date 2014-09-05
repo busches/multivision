@@ -12,7 +12,7 @@ angular.module('app').config(function($routeProvider, $locationProvider) {
 			controller: 'mvUserListCtrl',
 			resolve: {
 				auth: function(mvIdentity, $q) {
-					if (mvIdentity.currentUser && mvIdentity.currentUser.roles.indexOf('admin') > -1) {
+					if (mvIdentity.isAuthorized('admin')) {
 						return true;
 					} else {
 						return $q.reject('not authorized');
@@ -22,7 +22,7 @@ angular.module('app').config(function($routeProvider, $locationProvider) {
 		});
 });
 
-angular.module('app').run(function($location, $rootScope){
+angular.module('app').run(function($location, $rootScope) {
 	$rootScope.$on('$routeChangeError', function(event, current, previous, rejection) {
 		if (rejection == 'not authorized') {
 			$location.path('/');
