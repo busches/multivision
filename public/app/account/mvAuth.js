@@ -1,4 +1,4 @@
-angular.module('app').factory('mvAuth', function($http, mvIdentity, $q) {
+ angular.module('app').factory('mvAuth', function($http, mvIdentity, mvUser, $q) {
 	return {
 		authenticateUser: function(username, password) {
 			var deferred = $q.defer();
@@ -7,7 +7,9 @@ angular.module('app').factory('mvAuth', function($http, mvIdentity, $q) {
 				password: password
 			}).then(function(response) {
 				if (response.data.success) {
-					mvIdentity.currentUser = response.data.user;
+					var user = new mvUser();
+					angular.extend(user, response.data.user);
+					mvIdentity.currentUser = user;
 					deferred.resolve(true);
 				} else {
 					deferred.resolve(false);

@@ -34,7 +34,7 @@ module.exports = function(config) {
 				firstName: 'Joe',
 				hashedPassword: hash,
 				lastName: 'Eames',
-				roles: ['Admin'],
+				roles: ['admin'],
 				salt: salt,
 				userName: 'joe'
 			});
