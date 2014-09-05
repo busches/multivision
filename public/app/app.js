@@ -11,12 +11,8 @@ angular.module('app').config(function($routeProvider, $locationProvider) {
 			templateUrl: '/partials/admin/user-list',
 			controller: 'mvUserListCtrl',
 			resolve: {
-				auth: function(mvIdentity, $q) {
-					if (mvIdentity.isAuthorized('admin')) {
-						return true;
-					} else {
-						return $q.reject('not authorized');
-					}
+				auth: function(mvAuth) {
+					return mvAuth.authorizeCurrentUserForRoute('admin');
 				}
 			}
 		});
