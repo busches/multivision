@@ -22,3 +22,12 @@ exports.authenticate = function(request, response, next) {
 	});
 	auth(request, response, next);
 };
+
+exports.requiresApiLogin = function(request, response, next) {
+	if (!request.isAuthenticated()) {
+		response.status(403);
+		response.end();
+	} else {
+		response.next();
+	}
+};
