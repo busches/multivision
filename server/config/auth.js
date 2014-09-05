@@ -28,6 +28,17 @@ exports.requiresApiLogin = function(request, response, next) {
 		response.status(403);
 		response.end();
 	} else {
-		response.next();
+		next();
 	}
+};
+
+exports.requiresRole = function(role) {
+	return function(request, response, next) {
+		if (!request.isAuthenticated() || request.user.roles.indexOf(role) === -1) {
+			response.status(403);
+			response.end();
+		} else {
+			next();
+		}
+	};
 };
