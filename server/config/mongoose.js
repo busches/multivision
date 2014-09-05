@@ -13,6 +13,7 @@ module.exports = function(config) {
 		firstName: String,
 		hashedPassword: String,
 		lastName: String,
+		roles: [String],
 		salt: String,
 		userName: String
 	});
@@ -33,6 +34,7 @@ module.exports = function(config) {
 				firstName: 'Joe',
 				hashedPassword: hash,
 				lastName: 'Eames',
+				roles: ['Admin'],
 				salt: salt,
 				userName: 'joe'
 			});
@@ -42,6 +44,7 @@ module.exports = function(config) {
 				firstName: 'John',
 				hashedPassword: hash,
 				lastName: 'Papa',
+				roles: [],
 				salt: salt,
 				userName: 'john'
 			});
