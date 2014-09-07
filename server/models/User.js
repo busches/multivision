@@ -2,12 +2,28 @@ var encryption = require('../utilities/encryption');
 var mongoose = require('mongoose');
 
 var userSchema = mongoose.Schema({
-	firstName: String,
-	hashedPassword: String,
-	lastName: String,
+	firstName: {
+		type: String,
+		required: '{PATH} is required!'
+	},
+	hashedPassword: {
+		type: String,
+		required: '{PATH} is required!'
+	},
+	lastName: {
+		type: String,
+		required: '{PATH} is required!'
+	},
 	roles: [String],
-	salt: String,
-	userName: String
+	salt: {
+		type: String,
+		required: '{PATH} is required!'
+	},
+	userName: {
+		type: String,
+		required: '{PATH} is required!',
+		unique: true
+	}
 });
 userSchema.methods = {
 	authenticate: function(passwordToMatch) {
