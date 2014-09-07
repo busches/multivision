@@ -29,7 +29,7 @@ angular.module('app').factory('mvAuth', function($http, mvIdentity, mvUser, $q) 
 				deferred.reject(response.data.reason);
 			});
 
-			return deferred;
+			return deferred.promise;
 		},
 		logoutUser: function() {
 			var deferred = $q.defer();
