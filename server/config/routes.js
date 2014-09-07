@@ -4,6 +4,8 @@ var users = require('../controllers/users');
 module.exports = function(app) {
 	app.get('/api/users', auth.requiresRole('admin'), users.getUsers);
 
+	app.post('/api/users', users.createUser);
+
 	app.get('/partials/*', function(request, response) {
 		response.render('../../public/app/' + request.params[0]);
 	});
