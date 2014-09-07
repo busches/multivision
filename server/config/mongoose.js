@@ -1,4 +1,4 @@
-var crypto = require('crypto');
+var encryption = require('../utilities/encryption');
 var mongoose = require('mongoose');
 
 module.exports = function(config) {
@@ -19,7 +19,7 @@ module.exports = function(config) {
 	});
 	userSchema.methods = {
 		authenticate: function(passwordToMatch) {
-			return hashPassword(this.salt, passwordToMatch) === this.hashedPassword;
+			return encryption.hashPassword(this.salt, passwordToMatch) === this.hashedPassword;
 		}
 	};
 
@@ -28,8 +28,8 @@ module.exports = function(config) {
 	User.find({}).exec(function(error, collection) {
 		if (collection.length === 0) {
 			var hash;
-			var salt = createSalt();
-			hash = hashPassword(salt, 'joe');
+			var salt = encryption.createSalt();
+			hash = encryption.hashPassword(salt, 'joe');
 			User.create({
 				firstName: 'Joe',
 				hashedPassword: hash,
@@ -38,8 +38,8 @@ module.exports = function(config) {
 				salt: salt,
 				userName: 'joe'
 			});
-			salt = createSalt();
-			hash = hashPassword(salt, 'john');
+			salt = encryption.createSalt();
+			hash = encryption.hashPassword(salt, 'john');
 			User.create({
 				firstName: 'John',
 				hashedPassword: hash,
@@ -48,8 +48,8 @@ module.exports = function(config) {
 				salt: salt,
 				userName: 'john'
 			});
-			salt = createSalt();
-			hash = hashPassword(salt, 'dan');
+			salt = encryption.createSalt();
+			hash = encryption.hashPassword(salt, 'dan');
 			User.create({
 				firstName: 'Dan',
 				hashedPassword: hash,
@@ -60,12 +60,3 @@ module.exports = function(config) {
 		}
 	});
 };
-
-function createSalt() {
-	return crypto.randomBytes(128).toString('base64');
-}
-
-function hashPassword(salt, password) {
-	var hmac = crypto.createHmac('sha1', salt);
-	return hmac.update(password).digest('hex');
-}
