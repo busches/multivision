@@ -4,6 +4,7 @@ var User = mongoose.model('User');
 
 exports.createUser = function(request, response, next) {
 	var userData = request.body;
+	userData.userName = userData.userName.toLowerCase();
 	userData.salt = encryption.createSalt();
 	userData.hashedPassword = encryption.hashPassword(userData.salt, userData.password);
 	User.create(userData, function(error, user) {
