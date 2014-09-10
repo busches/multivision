@@ -42,6 +42,18 @@ angular.module('app').factory('mvAuth', function($http, mvIdentity, mvUser, $q) 
 
 			return deferred.promise;
 		},
+		updateCurrentUser: function(newUserData) {
+			var deferred = $q.defer();
+			var clone = angular.copy(mvIdentity.currentUser);
+			angular.extend(clone, newUserData);
+			close.update().then(function() {
+				mvIdentity.currentUser = clone;
+				dfd.resolve();
+			}, function(response) {
+				deferred.reject(response.data.reason);
+			});
+			return deferred.promise;
+		},
 		authorizeCurrentUserForRoute: function(role) {
 			if (mvIdentity.isAuthorized(role)) {
 				return true;
