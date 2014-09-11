@@ -48,7 +48,7 @@ angular.module('app').factory('mvAuth', function($http, mvIdentity, mvUser, $q) 
 			angular.extend(clone, newUserData);
 			clone.$update().then(function() {
 				mvIdentity.currentUser = clone;
-				dfd.resolve();
+				deferred.resolve();
 			}, function(response) {
 				deferred.reject(response.data.reason);
 			});
