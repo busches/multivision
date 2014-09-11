@@ -31,3 +31,29 @@ exports.getUsers = function(request, response) {
 		response.send(collection);
 	});
 };
+
+exports.updateUser = function(request, response) {
+	var userUpdates = request.body;
+	if (request.user._id != userUpdates._id && !request.user.hasRole('admin')) {
+		response.status('403');
+		return response.end();
+	}
+
+	request.user.firstName = userUpdates.firstName;
+	request.user.lastName = userUpdates.lastName;
+	request.user.userName = userUpdates.userName;
+	if (userUpdates.password && userUpdates.password.length) {
+		request.user.salt = encryption.createSalt();
+		request.user.hashedPassword = encryption.hashPassword(request.user.salt, userUpdates.password);
+	}
+
+	request.user.save(function(error) {
+		if (error) {
+			response.status(400);
+			return response.send({
+				reason: error.toString()
+			});
+		}
+		response.send(request.user);
+	});
+};
