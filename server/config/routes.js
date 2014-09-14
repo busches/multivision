@@ -8,6 +8,10 @@ module.exports = function(app) {
 
 	app.put('/api/users', users.updateUser);
 
+	app.all('/api/*', function(request, response) {
+		response.send(404);
+	});
+
 	app.get('/partials/*', function(request, response) {
 		response.render('../../public/app/' + request.params[0]);
 	});
