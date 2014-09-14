@@ -1,7 +1,10 @@
 var auth = require('./auth');
+var courses = require('../controllers/courses');
 var users = require('../controllers/users');
 
 module.exports = function(app) {
+	app.get('/api/courses', courses.getCourses);
+
 	app.get('/api/users', auth.requiresRole('admin'), users.getUsers);
 
 	app.post('/api/users', users.createUser);
