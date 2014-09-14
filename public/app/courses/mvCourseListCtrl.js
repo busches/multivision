@@ -1,8 +1,8 @@
 'use strict';
 
-angular.module('app').controller('mvCourseListCtrl', ['mvCourse', '$scope',
-	function(mvCourse, $scope) {
-		$scope.courses = mvCourse.query();
+angular.module('app').controller('mvCourseListCtrl', ['mvCachedCourses', '$scope',
+	function(mvCachedCourses, $scope) {
+		$scope.courses = mvCachedCourses.query();
 		$scope.sortOptions = [{
 			value: 'title',
 			text: 'Sort by Title'
