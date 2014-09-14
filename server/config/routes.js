@@ -5,6 +5,8 @@ var users = require('../controllers/users');
 module.exports = function(app) {
 	app.get('/api/courses', courses.getCourses);
 
+	app.get('/api/courses/:id', courses.getCourseById);
+
 	app.get('/api/users', auth.requiresRole('admin'), users.getUsers);
 
 	app.post('/api/users', users.createUser);
